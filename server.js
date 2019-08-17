@@ -41,5 +41,35 @@ server.get('/api/resources/', async (req, res) => {
   }
 })
 
+server.post('/api/projects', async (req, res) => {
+  try {
+    const [id] = await db('projects').insert(req.body)
+    const project = await db('projects').where({id}).first()
+    res.status(201).json(project)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+})
+server.post('/api/tasks', async (req, res) => {
+  try {
+    const [id] = await db('tasks').insert(req.body)
+    const task = await db('tasks').where({id}).first()
+    res.status(201).json(task)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+})
+server.post('/api/resources', async (req, res) => {
+  try {
+    const [id] = await db('resources').insert(req.body)
+    const resource = await db('resources').where({id}).first()
+    res.status(201).json(resource)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+})
 
 module.exports = server
